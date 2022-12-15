@@ -4,8 +4,26 @@ import Game from "./lib/Game";
 
 const App = () => {
     const [gameState, setGameState] = useState({
-        player: 1,
-        name: 'Chris'
+        players: [
+            {
+                name: "Player 1",
+                color: "red"
+            },
+            {
+                name: "Player 2",
+                color: "blue"
+            }
+        ],
+        selected: [],
+        board: Array(6).fill(0).map((row, rowIndex) => {
+            return Array(7).fill(0).map((col, colIndex) => {
+                return {
+                    color: null,
+                    coords: [rowIndex, colIndex],
+                    id: colIndex + (7 * rowIndex)
+                }
+            })
+        }),
     })
 
     const GameContext = createContext(null);

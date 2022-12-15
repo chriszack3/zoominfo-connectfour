@@ -6,33 +6,34 @@ import {
 const Table = ({ context }) => {
     const { gameState, setGameState } = useContext(context);
 
-    const tdOnClick = (rowIndex, colIndex, tdIndex) => {
-        const coords = [rowIndex, colIndex];
+    const tdOnClick = (coords) => {
         setGameState({
             ...gameState,
-            coords
+            selected: coords
         })
+        console.log(gameState)
     }
     return (
         <table id="connect_app" className={connect_table}>
             <tbody>
                 {
-                    Array(6).fill(0).map((row, rowIndex) => {
+                    gameState.board.map((row, rowIndex) => {
                         return (
                             <tr id={rowIndex} key={rowIndex}>
                                 {
-                                    Array(7).fill(0).map((col, colIndex) => {
-                                        const tdIndex = colIndex + (7 * rowIndex)
+                                    row.map((col) => {
+                                        console.log(col)
                                         return (
-                                            <td  id={tdIndex} key={tdIndex}>
-                                                <button onClick={() => tdOnClick(rowIndex, colIndex, tdIndex)}>{rowIndex}, {colIndex}</button>
+                                            <td className="table_cell" id={col.id} key={col.id}>
+                                                <button onClick={() => tdOnClick(col.coords)}>{col.coords[0]}, {col.coords[1]}</button>
                                             </td>
                                         );
                                     })
                                 }
                             </tr>
                         );
-                    })
+                    }
+                    )
                 }
             </tbody>
         </table>

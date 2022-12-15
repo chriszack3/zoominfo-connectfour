@@ -7,7 +7,7 @@ const Game = ({ context }) => {
         <div>
             <h1>Game</h1>
             <p>Player: {gameState.player}</p>
-            <p>Selected: {gameState?.coords?.[0] || 0}, {gameState?.coords?.[1] || 0}</p>
+            <p>Selected: {gameState.selected[0]}, {gameState.selected[1]}</p>
         </div>
     )
 }
