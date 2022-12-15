@@ -14,6 +14,7 @@ const App = () => {
                 color: "blue"
             }
         ],
+        turn: 0,
         selected: [],
         board: Array(6).fill(0).map((row, rowIndex) => {
             return Array(7).fill(0).map((col, colIndex) => {

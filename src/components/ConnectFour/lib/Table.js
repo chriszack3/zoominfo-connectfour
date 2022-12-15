@@ -7,9 +7,14 @@ const Table = ({ context }) => {
     const { gameState, setGameState } = useContext(context);
 
     const tdOnClick = (coords) => {
+        const newBoard = [...gameState.board];
+        newBoard[coords[0]][coords[1]].color = gameState.players[gameState.turn % 2].color;
+
         setGameState({
             ...gameState,
-            selected: coords
+            turn: gameState.turn + 1,
+            selected: coords,
+            board: newBoard
         })
         console.log(gameState)
     }
@@ -24,7 +29,7 @@ const Table = ({ context }) => {
                                     row.map((col) => {
                                         console.log(col)
                                         return (
-                                            <td className="table_cell" id={col.id} key={col.id}>
+                                            <td style={{backgroundColor: `${col?.color || 'black'}`}} className="table_cell" id={col.id} key={col.id}>
                                                 <button onClick={() => tdOnClick(col.coords)}>{col.coords[0]}, {col.coords[1]}</button>
                                             </td>
                                         );
