@@ -8,7 +8,7 @@ const Table = ({ context }) => {
 
     const tdOnClick = (coords) => {
         const newBoard = [...gameState.board];
-        newBoard[coords[0]][coords[1]].color = gameState.players[gameState.turn % 2].color;
+        newBoard[coords[0]][coords[1]].color = gameState?.players?.[gameState.turn % 2]?.color;
 
         setGameState({
             ...gameState,

@@ -1,19 +1,11 @@
-import React, {createContext, useContext, useState} from "react";
+import React, { createContext, useContext, useState } from "react";
 import Table from "./lib/Table";
 import Game from "./lib/Game";
+import { game_container } from "./App.module.scss";
 
 const App = () => {
     const [gameState, setGameState] = useState({
-        players: [
-            {
-                name: "Player 1",
-                color: "red"
-            },
-            {
-                name: "Player 2",
-                color: "blue"
-            }
-        ],
+        players: [],
         turn: 0,
         selected: [],
         board: Array(6).fill(0).map((row, rowIndex) => {
@@ -30,13 +22,15 @@ const App = () => {
     const GameContext = createContext(null);
 
     return (
-        <GameContext.Provider value={{
-            gameState,
-            setGameState
-        }}>
-            <Game context={GameContext} />
-            <Table context={GameContext} />
-        </GameContext.Provider>
+        <div id={game_container}>
+            <GameContext.Provider value={{
+                gameState,
+                setGameState
+            }}>
+                <Game context={GameContext} />
+                <Table context={GameContext} />
+            </GameContext.Provider>
+        </div>
     );
 }
 
