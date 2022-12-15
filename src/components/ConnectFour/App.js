@@ -1,39 +1,22 @@
-import React from "react";
-import {
-    connect_table
-} from "./App.module.scss";
+import React, {createContext, useContext, useState} from "react";
+import Table from "./lib/Table";
+
 
 const App = () => {
-    const tdOnClick = (rowIndex, colIndex, tdIndex) => {
-        const coords = [rowIndex, colIndex];
-        console.log(coords);
+    const [gameState, setGameState] = useState({
+        player: 1,
+        name: 'Chris'
+    })
 
-        console.log(tdIndex)
-    }
+    const GameContext = createContext(null);
 
     return (
-        <table id="connect_app" className={connect_table}>
-            <tbody>
-                {
-                    Array(6).fill(0).map((row, rowIndex) => {
-                        return (
-                            <tr id={rowIndex} key={rowIndex}>
-                                {
-                                    Array(7).fill(0).map((col, colIndex) => {
-                                        const tdIndex = colIndex + (7 * rowIndex)
-                                        return (
-                                            <td  id={tdIndex} key={tdIndex}>
-                                                <button onClick={() => tdOnClick(rowIndex, colIndex, tdIndex)}>{rowIndex}, {colIndex}</button>
-                                            </td>
-                                        );
-                                    })
-                                }
-                            </tr>
-                        );
-                    })
-                }
-            </tbody>
-        </table>
+        <GameContext.Provider value={{
+            gameState,
+            setGameState
+        }}>
+            <Table context={GameContext} />
+        </GameContext.Provider>
     );
 }
 
