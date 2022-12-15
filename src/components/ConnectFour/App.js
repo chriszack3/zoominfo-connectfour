@@ -1,6 +1,6 @@
 import React, {createContext, useContext, useState} from "react";
 import Table from "./lib/Table";
-
+import Game from "./lib/Game";
 
 const App = () => {
     const [gameState, setGameState] = useState({
@@ -15,6 +15,7 @@ const App = () => {
             gameState,
             setGameState
         }}>
+            <Game context={GameContext} />
             <Table context={GameContext} />
         </GameContext.Provider>
     );

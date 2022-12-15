@@ -12,11 +12,6 @@ const Table = ({ context }) => {
             ...gameState,
             coords
         })
-        setTimeout(() => {
-            console.log(gameState);
-        }
-            , 1000);
-
     }
     return (
         <table id="connect_app" className={connect_table}>
