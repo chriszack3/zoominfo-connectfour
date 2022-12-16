@@ -2,18 +2,21 @@ import React, { useContext } from "react";
 import Table from "./Table";
 
 const Game = ({ context }) => {
+    //get the gameState and setGameState from the context
     const { gameState, setGameState } = useContext(context);
     const { players, turn, selected } = gameState;
     
     const handleSelect = (e) => {
         e.preventDefault();
         const newBoard = [...gameState.board];
+        //iterate through the selected column and find the first empty space
         for (let i = newBoard.length - 1; i >= 0; i--) {
             if (newBoard[i][selected[1]].color === null) {
                 newBoard[i][selected[1]].color = turn % 2 === 0 ? players[0].color : players[1].color;
                 break;
             }
         }
+        //save previous state, set the new board to state and increment the turn
         setGameState({
             ...gameState,
             board: newBoard,

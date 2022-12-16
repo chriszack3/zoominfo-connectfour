@@ -7,14 +7,11 @@ const Table = ({ context }) => {
     const { gameState, setGameState } = useContext(context);
     const { selected } = gameState;
     const tdOnClick = (coords) => {
-        // const newBoard = [...gameState.board];
-        // newBoard[coords[0]][coords[1]].color = gameState?.players?.[gameState.turn % 2]?.color;
-
+        //set the selected tile to state to be handled from the Game.js component
         setGameState({
             ...gameState,
             selected: coords,
         })
-        console.log(gameState)
     }
     return (
         <table id="connect_app" className={connect_table}>
@@ -25,7 +22,7 @@ const Table = ({ context }) => {
                             <tr id={rowIndex} key={rowIndex}>
                                 {
                                     row.map((col, colIndex) => {
-                                        console.log(col)
+                                        //render the table with the colors from the stateful representation of the board
                                         return (
                                             <td style={{backgroundColor: `${col?.color || 'black'}`, borderTop: 0, borderBottom: 0, borderRight: '4px solid', borderLeft: '4px solid', borderColor: `${selected[1] === col.coords[1] ? 'red' : 'black'}`}} id={col.id} className={`col${colIndex}`} key={col.id}>
                                                 <button onClick={() => tdOnClick(col.coords)}>{col.coords[0]}, {col.coords[1]}</button>
