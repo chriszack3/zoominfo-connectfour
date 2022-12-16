@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
 import Table from "./lib/Table";
-import Game from "./lib/Game";
+import GameController from "./lib/GameController";
 import { game_container } from "./App.module.scss";
 
 const App = () => {
@@ -27,8 +27,7 @@ const App = () => {
                 gameState,
                 setGameState
             }}>
-                <Game context={GameContext} />
-                <Table context={GameContext} />
+                <GameController context={GameContext} />
             </GameContext.Provider>
         </div>
     );
