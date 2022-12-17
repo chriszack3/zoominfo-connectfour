@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
 import Table from "./Table";
+import WinMessage from "./WinMessage";
 
 const Game = ({ context }) => {
     //get the gameState and setGameState from the context
     const { gameState, setGameState } = useContext(context);
-    const { players, turn, selected } = gameState;
+    const { players, turn, selected, win } = gameState;
     
     const checkWin = (board, row, col, color) => {
         //check for horizontal win
@@ -55,14 +56,15 @@ const Game = ({ context }) => {
         setGameState({
             ...gameState,
             board: newBoard,
-            turn: turn + 1,
+            turn: win ? turn : turn + 1,
             selected: [],
             win: win
         })
     }
 
     return (
-        <div>
+        !win ? (
+            <div>
             {
                 turn % 2 === 0 ? <h1>{players[0].name}'s Turn</h1> : <h1>{players[1].name}'s Turn. <br/> Please Select a Column to Drop your Tile</h1>
             }
@@ -76,6 +78,9 @@ const Game = ({ context }) => {
             }
             <Table context={context} />
         </div>
+        ) : (
+            <WinMessage win={win} players={players} turn={turn} />
+        )
     )
 }
 

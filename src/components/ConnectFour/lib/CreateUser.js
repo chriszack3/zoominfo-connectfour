@@ -5,15 +5,18 @@ const CreateUser = ({ context }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        const { p1nick, p1age, p2nick, p2age } = e.target;
         setGameState({
             ...gameState,
             players: [
                 {
-                    name: e.target[0].value,
+                    name: p1nick.value,
+                    age: p1age.value,
                     color: 'red'
                 },
                 {
-                    name: e.target[1].value,
+                    name: p2nick.value,
+                    age: p2age.value,
                     color: 'blue'
                 }
             ],
@@ -22,8 +25,16 @@ const CreateUser = ({ context }) => {
     return (
         <>
             <form onSubmit={(e) => handleSubmit(e)}>
-                <input type="text" placeholder="Player 1 Name" />
-                <input type="text" placeholder="Player 2 Name" />
+                <fieldset>
+                    <legend>Player 1</legend>
+                    <input name="p1nick" type="text" placeholder="Nickname" />
+                    <input name="p1age" type="number" placeholder="Age" />
+                </fieldset>
+                <fieldset>
+                    <legend>Player 2</legend>
+                    <input name="p2nick" type="text" placeholder="Nickname" />
+                    <input name="p2age" type="number" placeholder="Age" />
+                </fieldset>
                 <button type="submit">Submit</button>
             </form>
         </>

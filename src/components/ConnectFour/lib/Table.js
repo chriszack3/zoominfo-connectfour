@@ -5,7 +5,8 @@ import {
 
 const Table = ({ context }) => {
     const { gameState, setGameState } = useContext(context);
-    const { selected } = gameState;
+    const { selected, win } = gameState;
+
     const tdOnClick = (coords) => {
         //set the selected tile to state to be handled from the Game.js component
         setGameState({
@@ -13,7 +14,8 @@ const Table = ({ context }) => {
             selected: coords,
         })
     }
-    return (
+
+    return(
         <table id="connect_app" className={connect_table}>
             <tbody>
                 {
@@ -37,7 +39,8 @@ const Table = ({ context }) => {
                 }
             </tbody>
         </table>
-    );
-}
+    )
+};
+
 
 export default Table;
