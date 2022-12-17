@@ -6,22 +6,58 @@ const Game = ({ context }) => {
     const { gameState, setGameState } = useContext(context);
     const { players, turn, selected } = gameState;
     
-    const handleSelect = (e) => {
+    const checkWin = (board, row, col, color) => {
+        //check for horizontal win
+        let count = 0;
+        for (let i = 0; i < board.length; i++) {
+            if (board[row][i].color === color) {
+                count++;
+                if (count === 4) {
+                    return color;
+                }
+            } else {
+                count = 0;
+            }
+        }
+        //check for vertical win
+        count = 0;
+        for (let i = 0; i < board.length; i++) {
+            if (board[i][col].color === color) {
+                count++;
+                if (count === 4) {
+                    return color;
+                }
+            } else {
+                count = 0;
+            }
+        }
+        return false
+    }
+
+    const handleSelect = (e, col) => {
         e.preventDefault();
         const newBoard = [...gameState.board];
+
+        let rowId = null;
+
         //iterate through the selected column and find the first empty space
         for (let i = newBoard.length - 1; i >= 0; i--) {
-            if (newBoard[i][selected[1]].color === null) {
-                newBoard[i][selected[1]].color = turn % 2 === 0 ? players[0].color : players[1].color;
+            if (newBoard[i][col].color === null) {
+                newBoard[i][col].color = turn % 2 === 0 ? players[0].color : players[1].color;
+                rowId = i;
                 break;
             }
         }
+
+        const win = checkWin(newBoard, rowId, col, newBoard[rowId][col].color)
+       
         //save previous state, set the new board to state and increment the turn
         setGameState({
             ...gameState,
             board: newBoard,
             turn: turn + 1,
-            selected: []
+            selected: [],
+            win: win
         })
     }
 
