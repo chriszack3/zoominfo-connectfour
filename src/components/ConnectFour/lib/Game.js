@@ -8,30 +8,49 @@ const Game = ({ context }) => {
     const { players, turn, selected, win } = gameState;
     
     const checkWin = (board, row, col, color) => {
-        //check for horizontal win
-        let count = 0;
-        for (let i = 0; i < board.length; i++) {
-            if (board[row][i].color === color) {
-                count++;
-                if (count === 4) {
-                    return color;
-                }
-            } else {
-                count = 0;
-            }
-        }
         //check for vertical win
-        count = 0;
-        for (let i = 0; i < board.length; i++) {
-            if (board[i][col].color === color) {
-                count++;
-                if (count === 4) {
-                    return color;
+        let count = 0;
+        if(board?.[row + 1]?.[col]?.color === color) {
+            for(let i = 0; i < board.length - 1; i++){
+                if(board?.[row + i]?.[col]?.color === color) {
+                    count++;
+                    if(count === 4) {
+                        return color;
+                    }
+                } else {
+                    count = 0;
                 }
-            } else {
-                count = 0;
             }
         }
+
+        //check for horizontal win
+        else if(board?.[row]?.[col - 1]?.color === color || board?.[row]?.[col + 1]?.color === color) {
+            for(let i = 0; i < board[row].length - 1; i++){
+                if(board?.[row]?.[i]?.color === color) {
+                    count++;
+                    if(count === 4) {
+                        return color;
+                    }
+                } else {
+                    count = 0;
+                }
+            }
+        }
+
+        //check for diagonal win
+        else if(board?.[row + 1]?.[col + 1]?.color === color) {
+            for(let i = 0; i < board.length - 1; i++){
+                if(board?.[row + i]?.[col + i]?.color === color) {
+                    count++;
+                    if(count === 4) {
+                        return color;
+                    }
+                } else {
+                    count = 0;
+                }
+            }
+        }
+
         return false
     }
 
