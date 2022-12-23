@@ -1,5 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
-import Table from "./lib/Table";
+import React, { createContext, useState, useEffect } from "react";
 import GameController from "./lib/GameController";
 import { game_container } from "./App.module.scss";
 
@@ -23,6 +22,18 @@ const App = () => {
 
     const GameContext = createContext(null);
 
+    useEffect(() => {
+        //set the players from local storage
+        const players = JSON.parse(localStorage.getItem("players"));
+        if(players) {
+            setGameState(prevState => {
+                return {
+                    ...prevState,
+                    players
+                }
+            }
+        )}
+    }, [])
     return (
         <div id={game_container}>
             <GameContext.Provider value={{
