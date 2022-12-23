@@ -22,6 +22,7 @@ const CreateUser = ({ context }) => {
                 }
             ],
             turn: 1,
+            date: new Date()
         })
         //set players to local storage
         localStorage.setItem("players", JSON.stringify([

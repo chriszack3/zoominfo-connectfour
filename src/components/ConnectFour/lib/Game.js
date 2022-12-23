@@ -106,7 +106,7 @@ const Game = ({ context }) => {
             turn: win ? turn : turn + 1,
             selected: [],
             win: win,
-            scoreBoard: win ? [...gameState.scoreBoard, {player: player, turn: turn}] : [...gameState.scoreBoard]
+            scoreBoard: win ? [...gameState.scoreBoard, {player: player, turn: turn, time: gameState.date}] : [...gameState.scoreBoard]
             
         })
         
