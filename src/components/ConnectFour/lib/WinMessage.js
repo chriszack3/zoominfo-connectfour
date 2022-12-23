@@ -13,6 +13,7 @@ const WinMessage = ({ win, players, turn, scoreBoard }) => {
     const handleClick = () => {
         setToggle(!toggle)
     }
+    
     return (
         <>
             <h1>{message} in {turn} turns</h1>

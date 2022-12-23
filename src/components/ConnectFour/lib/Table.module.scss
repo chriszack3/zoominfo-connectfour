@@ -9,8 +9,13 @@
 }
 
 .connect_table > tbody > tr > td {
-    background-color: #fff;
-    border: 1px solid #000;
     width: 100px;
     height: 100px;
+}
+
+.connect_table > tbody > tr > td > button{
+    border: 1px solid #000;
+
+    width: 100%;
+    height: 100%;
 }

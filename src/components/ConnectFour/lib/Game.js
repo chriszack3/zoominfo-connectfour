@@ -116,12 +116,12 @@ const Game = ({ context }) => {
         !win ? (
             <div>
             {
-                turn % 2 === 0 ? <h1>{players[0].name}'s Turn</h1> : <h1>{players[1].name}'s Turn. <br/> Please Select a Column to Drop your Tile</h1>
+                turn % 2 === 0 ? <h1>{players[0].name}'s turn</h1> : <h1>{players[1].name}'s turn. <br/> Please Select a Column to Drop your Tile</h1>
             }
             {
                 selected.length > 0 && (
                     <form onSubmit={(e) => handleSelect(e, selected[1])} >
-                        <h1>Drop Tile into Column {selected[1] + 1}</h1>
+                        <h1>Drop tile into column {selected[1] + 1}</h1>
                         <button type="submit">Confirm?</button>
                     </form>
                 )
@@ -129,7 +129,13 @@ const Game = ({ context }) => {
             <Table context={context} />
         </div>
         ) : (
-            <WinMessage scoreBoard={scoreBoard} win={win} players={players} turn={turn} />
+            <>
+                <WinMessage scoreBoard={scoreBoard} win={win} players={players} turn={turn} />
+                <button onClick={() => setGameState({
+                    ...gameState,
+                    turn: 0
+                })}>New Game</button>
+            </>
         )
     )
 }

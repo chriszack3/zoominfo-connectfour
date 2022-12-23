@@ -26,8 +26,8 @@ const Table = ({ context }) => {
                                     row.map((col, colIndex) => {
                                         //render the table with the colors from the stateful representation of the board
                                         return (
-                                            <td style={{backgroundColor: `${col?.color || 'white'}`, borderTop: 0, borderBottom: 0, borderRight: '4px solid', borderLeft: '4px solid', borderColor: `${selected[1] === col.coords[1] ? 'black' : 'white'}`}} id={col.id} className={`col${colIndex}`} key={col.id}>
-                                                <button onClick={() => tdOnClick(col.coords)}>{col.coords[0]}, {col.coords[1]}</button>
+                                            <td>
+                                                <button style={{backgroundColor: `${col?.color || 'white'}`, borderTop: 0, borderBottom: 0, borderRight: '4px solid', borderLeft: '4px solid', borderColor: `${selected[1] === col.coords[1] ? 'black' : 'white'}`}} id={col.id} className={`col${colIndex}`} key={col.id} onClick={() => tdOnClick(col.coords)}></button>
                                             </td>
                                         );
                                     })
