@@ -12,7 +12,10 @@ const GameController = ({ context }) => {
                 gameState.turn < 1 && <CreateUser context={context} />
             }
             {
-                gameState.turn > 0 && <Game context={context} />
+                gameState.turn > 0 && gameState.turn < 42 && <Game context={context} />
+            }
+            {
+                gameState.turn === 42 && <h2>Draw :/</h2>
             }
         </div>
     )
