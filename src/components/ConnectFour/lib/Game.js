@@ -5,50 +5,38 @@ import WinMessage from "./WinMessage";
 const Game = ({ context }) => {
     //get the gameState and setGameState from the context
     const { gameState, setGameState } = useContext(context);
-    const { players, turn, selected, win } = gameState;
+    const { players, turn, selected, win, scoreBoard } = gameState;
     
     const checkWin = (board, row, col, color) => {
-        //check for vertical win
-        let count = 0;
-        if(board?.[row + 1]?.[col]?.color === color) {
-            for(let i = 0; i < board.length - 1; i++){
-                if(board?.[row + i]?.[col]?.color === color) {
-                    count++;
-                    if(count === 4) {
-                        return color;
-                    }
-                } else {
-                    count = 0;
-                }
-            }
-        }
-
         //check for horizontal win
-        else if(board?.[row]?.[col - 1]?.color === color || board?.[row]?.[col + 1]?.color === color) {
-            for(let i = 0; i < board[row].length - 1; i++){
-                if(board?.[row]?.[i]?.color === color) {
+        if(board?.[row]?.[col - 3]?.color === color || board?.[row]?.[col + 3]?.color === color) {
+            let count = 0;
+            for(let i = 0; i < board[row].length; i++) {
+                if(board[row][i].color === color) {
                     count++;
                     if(count === 4) {
-                        return color;
+                        return true;
                     }
                 } else {
                     count = 0;
                 }
             }
         }
-
-        //check for diagonal win
-        else if(board?.[row + 1]?.[col + 1]?.color === color) {
-            for(let i = 0; i < board.length - 1; i++){
-                if(board?.[row + i]?.[col + i]?.color === color) {
+        //check for vertical win
+        if(board?.[row - 3]?.[col]?.color === color || board?.[row + 3]?.[col]?.color === color) {
+            let count = 0;
+            const column = board.map(row => row[col]);
+            for(let i = 0; i < column.length; i++) {
+                if(column[i].color === color) {
                     count++;
                     if(count === 4) {
-                        return color;
+                        return true;
                     }
                 } else {
                     count = 0;
                 }
             }
+            
         }
 
         return false
@@ -72,13 +60,17 @@ const Game = ({ context }) => {
         const win = checkWin(newBoard, rowId, col, newBoard[rowId][col].color)
        
         //save previous state, set the new board to state and increment the turn
+        const player = turn % 2 === 0 ? players[0].name : players[1].name;
         setGameState({
             ...gameState,
             board: newBoard,
             turn: win ? turn : turn + 1,
             selected: [],
-            win: win
+            win: win,
+            scoreBoard: win ? [...gameState.scoreBoard, {player: player, turn: turn}] : [...gameState.scoreBoard]
+            
         })
+        
     }
 
     return (
@@ -98,7 +90,7 @@ const Game = ({ context }) => {
             <Table context={context} />
         </div>
         ) : (
-            <WinMessage win={win} players={players} turn={turn} />
+            <WinMessage scoreBoard={scoreBoard} win={win} players={players} turn={turn} />
         )
     )
 }

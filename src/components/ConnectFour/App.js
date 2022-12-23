@@ -18,6 +18,7 @@ const App = () => {
                 }
             })
         }),
+        scoreBoard: []
     })
 
     const GameContext = createContext(null);
@@ -30,6 +31,16 @@ const App = () => {
                 return {
                     ...prevState,
                     players
+                }
+            }
+        )}
+        //set the scoreBoard from local storage
+        const scoreBoard = JSON.parse(localStorage.getItem("scoreBoard"));
+        if(scoreBoard) {
+            setGameState(prevState => {
+                return {
+                    ...prevState,
+                    scoreBoard
                 }
             }
         )}
